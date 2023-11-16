@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Directory_Handler</string>
+    <string name="register">Register</string>
+    <string name="welcome_to_nhidcl_directory">Welcome to NHIDCL Directory</string>
+    <string name="email">Email</string>
+    <string name="pin">Pin</string>
+    <string name="sign_in">sign in</string>
+    <string name="forgot_password">Forgot Password ??</string>
+    <string name="or">OR</string>
+    <string name="problem">Problem?</string>
+</resources>
