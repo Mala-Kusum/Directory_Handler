@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "880679270595",
+    "firebase_url": "https://contacdry-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "contacdry",
+    "storage_bucket": "contacdry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880679270595:android:61190bacec5cc342c58a76",
+        "android_client_info": {
+          "package_name": "com.example.directory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfNRYxt4jx0nfV3rRK-HwM78ZFgYhrJeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880679270595:android:03a788c1f3ebda84c58a76",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfNRYxt4jx0nfV3rRK-HwM78ZFgYhrJeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880679270595:android:81d3751f1d101823c58a76",
+        "android_client_info": {
+          "package_name": "com.nhidcl.directory_handler.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfNRYxt4jx0nfV3rRK-HwM78ZFgYhrJeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880679270595-glff6gca769hfslk98nao69rirfve7mn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
