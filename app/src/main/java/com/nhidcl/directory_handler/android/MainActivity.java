@@ -4,6 +4,7 @@ package com.nhidcl.directory_handler.android;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,7 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button button1,register;
+    Button button1;
     ImageButton helperph,helperem;
     EditText id;
     //Query query1;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static String EMAIL,PIN;
     public static Class parent;
     public static boolean admin=false;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference noteRef=db.collection("contacts");
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference noteRef=db.collection("contacts");
     public static final String Name="NAME";
     public static final String Email="EMAIL";
     public static final String Designation="DESIGNATION";
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String Password="PASSWORD";
     public static final String Type="TYPE";
     public static final String Pin="PIN";
+    FirebaseAuth auth;
 
     ArrayList<String[]> list;
 
@@ -58,25 +60,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = MainActivity.this;
-        SharedPreferences sharedPref = context.getSharedPreferences("shared preference", Context.MODE_PRIVATE);
-        EMAIL = sharedPref.getString("email", "");
-        Log.d("sharedpref", sharedPref.getString("email", ""));
-        /*if (!sharedPref.getString("email", "").equals("")) {
-            Log.d("in if", "in if");
-            Intent intent = new Intent(MainActivity.this, LoggedInUser.class);
-            startActivity(intent);
-            finish();
-        }*/
         setContentView(R.layout.activity_main);
-        register = findViewById(R.id.link);
         button1 = findViewById(R.id.button);
         helperem = findViewById(R.id.emailh);
         helperph = findViewById(R.id.phoneh);
         id = findViewById(R.id.id);
         pswd = findViewById(R.id.pswd);
-        id.setText(sharedPref.getString("email", "") == null ? "" : sharedPref.getString("email", ""));
 
         helperem.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -98,13 +90,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                auth = FirebaseAuth.getInstance();
             }
         });
-        button1.setOnClickListener(new View.OnClickListener() {
+
+        /*button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EMAIL = id.getText().toString();
@@ -124,14 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                     MainActivity.admin = false;
                                 }
                             }
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("email", EMAIL);
-                            editor.apply();
-                            Log.d("mainActivity", sharedPref.getString("email", ""));
                             Log.d("MainActivity admin", MainActivity.admin ? "true" : "false");
-                            //Intent intent = new Intent(MainActivity.this, page1.class);
-                            //startActivity(intent);
-                            //finish();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -142,6 +128,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
     }
 }
