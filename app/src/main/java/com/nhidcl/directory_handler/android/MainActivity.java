@@ -1,6 +1,8 @@
 package com.nhidcl.directory_handler.android;
 
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,6 +32,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button button1;
@@ -52,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String[]> list;
 
-    void loginUser() {
+    /*void loginUser() {
         auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(EMAIL, PIN).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -73,7 +82,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }*/
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+        IdpResponse response = result.getIdpResponse();
+        if (result.getResultCode() == RESULT_OK) {
+            // Successfully signed in
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            // ...
+        } else {
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
+        }
     }
+    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+                @Override
+                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                    onSignInResult(result);
+                }
+            }
+    );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         button1 = findViewById(R.id.button);
         helperem = findViewById(R.id.emailh);
         helperph = findViewById(R.id.phoneh);
-        id = findViewById(R.id.id);
-        pswd = findViewById(R.id.pswd);
+        /*id = findViewById(R.id.id);
+        pswd = findViewById(R.id.pswd);*/
 
         helperem.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("IntentReset")
@@ -108,48 +139,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EMAIL=id.getText().toString().trim();
+                /*EMAIL=id.getText().toString().trim();
                 PIN=pswd.getText().toString().trim();
-                loginUser();
+                loginUser();*/
+                /*if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+                    Intent i = new Intent(MainActivity.this, LoggedIn2.class);
+                    startActivity(i);
+                    finish();
+                }
+                else{
+
+                }*/
+                List<AuthUI.IdpConfig> provider = Arrays.asList(
+                  new AuthUI.IdpConfig.GoogleBuilder().build()
+                );
+                Intent i = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(provider).setLogo(R.drawable.logo2).build();
+                signInLauncher.launch(i);
             }
         });
-
-        /*button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EMAIL = id.getText().toString();
-                PIN = pswd.getText().toString();
-                Query query = noteRef.whereEqualTo(Email, EMAIL).whereEqualTo("PIN", PIN);
-                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (queryDocumentSnapshots.isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Wrong ID or Pin", Toast.LENGTH_SHORT).show();
-                        } else {
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                Log.e("Type", Type);
-                                if (doc.getData().get("TYPE").toString().equals(new String("admin"))) {
-                                    MainActivity.admin = true;
-                                } else {
-                                    MainActivity.admin = false;
-                                }
-                            }
-                            Log.d("MainActivity admin", MainActivity.admin ? "true" : "false");
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("mainActivity ", "inquery");
-                        //Log.e("tage", e.toString());
-                    }
-                });
-            }
-        });*/
     }
-
-
 }
